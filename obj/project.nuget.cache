@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "dgSpecHash": "LIxnrYYFiYc=",
+  "success": true,
+  "projectFilePath": "/home/cohorte6/Escritorio/c#/AccessKepler/AccessKepler.csproj",
+  "expectedPackageFiles": [
+    "/home/cohorte6/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/9.0.0/microsoft.aspnetcore.authentication.jwtbearer.9.0.0.nupkg.sha512",
+    "/home/cohorte6/.nuget/packages/microsoft.identitymodel.abstractions/8.18.0/microsoft.identitymodel.abstractions.8.18.0.nupkg.sha512",
+    "/home/cohorte6/.nuget/packages/microsoft.identitymodel.jsonwebtokens/8.18.0/microsoft.identitymodel.jsonwebtokens.8.18.0.nupkg.sha512",
+    "/home/cohorte6/.nuget/packages/microsoft.identitymodel.logging/8.18.0/microsoft.identitymodel.logging.8.18.0.nupkg.sha512",
+    "/home/cohorte6/.nuget/packages/microsoft.identitymodel.protocols/8.0.1/microsoft.identitymodel.protocols.8.0.1.nupkg.sha512",
+    "/home/cohorte6/.nuget/packages/microsoft.identitymodel.protocols.openidconnect/8.0.1/microsoft.identitymodel.protocols.openidconnect.8.0.1.nupkg.sha512",
+    "/home/cohorte6/.nuget/packages/microsoft.identitymodel.tokens/8.18.0/microsoft.identitymodel.tokens.8.18.0.nupkg.sha512",
+    "/home/cohorte6/.nuget/packages/system.identitymodel.tokens.jwt/8.18.0/system.identitymodel.tokens.jwt.8.18.0.nupkg.sha512"
+  ],
+  "logs": []
+}

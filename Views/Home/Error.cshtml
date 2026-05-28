@@ -1,0 +1,17 @@
+@model ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+    Layout = "_Layout";
+}
+
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;font-family:'DM Mono',monospace;color:#DDDCDB;">
+    <div>
+        <h1 style="font-family:'Syne',sans-serif;font-size:48px;color:#FD7B41;margin-bottom:8px;">500</h1>
+        <p style="color:#8a9097;margin-bottom:16px;">Ocurrió un error inesperado.</p>
+        @if (Model?.ShowRequestId == true)
+        {
+            <p style="font-size:11px;color:#3C4044;letter-spacing:1px;">REQUEST ID: @Model.RequestId</p>
+        }
+        <a href="/" style="display:inline-block;margin-top:20px;color:#FD7B41;text-decoration:none;font-size:13px;letter-spacing:1px;">← VOLVER AL INICIO</a>
+    </div>
+</div>
