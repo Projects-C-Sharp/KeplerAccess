@@ -30,7 +30,7 @@
 
     <link rel="stylesheet" href="~/css/app.css" asp-append-version="true" />
 </head>
-<body>
+<body class="@(ViewData["BodyClass"] ?? "")">
     @RenderBody()
 
     <script src="~/js/sw-register.js" asp-append-version="true"></script>

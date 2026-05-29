@@ -268,7 +268,62 @@ public class HomeController : Controller
 
             var response = await client.GetAsync("/api/scanner/history");
             var body     = await response.Content.ReadAsStringAsync();
-            return Content(body, "application/json");
+
+            // Parsear la respuesta envuelta: { success, data: [...] }
+            using var doc  = System.Text.Json.JsonDocument.Parse(body);
+            var root       = doc.RootElement;
+            var dataExists = root.TryGetProperty("data", out var dataEl)
+                             && dataEl.ValueKind == System.Text.Json.JsonValueKind.Array;
+
+            if (!dataExists)
+                return Ok(new ScanStats());
+
+            int total    = 0;
+            int valid    = 0;
+            int rejected = 0;
+            int fraud    = 0;
+            string evName = string.Empty;
+
+            foreach (var item in dataEl.EnumerateArray())
+            {
+                total++;
+                bool wasSuccessful = item.TryGetProperty("wasSuccessful", out var ws) && ws.GetBoolean();
+
+                if (wasSuccessful)
+                {
+                    valid++;
+                }
+                else
+                {
+                    rejected++;
+                    if (item.TryGetProperty("failureReason", out var fr)
+                        && fr.ValueKind != System.Text.Json.JsonValueKind.Null
+                        && fr.GetString()?.Contains("Already used", StringComparison.OrdinalIgnoreCase) == true)
+                    {
+                        fraud++;
+                    }
+                }
+
+                if (string.IsNullOrEmpty(evName)
+                    && item.TryGetProperty("eventName", out var en)
+                    && en.ValueKind == System.Text.Json.JsonValueKind.String)
+                {
+                    evName = en.GetString() ?? string.Empty;
+                }
+            }
+
+            var stats = new ScanStats
+            {
+                TotalScanned     = total,
+                ValidScans       = valid,
+                RejectedScans    = rejected,
+                FraudAttempts    = fraud,
+                EventName        = evName,
+                CurrentAttendees = valid,
+                EventCapacity    = 0
+            };
+
+            return Ok(stats);
         }
         catch
         {

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/cohorte6/Escritorio/c#/AccessKepler/AccessKepler.csproj": {}
+    "/home/cohorte6/Escritorio/c#/KeplerAccess/AccessKepler.csproj": {}
   },
   "projects": {
-    "/home/cohorte6/Escritorio/c#/AccessKepler/AccessKepler.csproj": {
+    "/home/cohorte6/Escritorio/c#/KeplerAccess/AccessKepler.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/cohorte6/Escritorio/c#/AccessKepler/AccessKepler.csproj",
+        "projectUniqueName": "/home/cohorte6/Escritorio/c#/KeplerAccess/AccessKepler.csproj",
         "projectName": "AccessKepler",
-        "projectPath": "/home/cohorte6/Escritorio/c#/AccessKepler/AccessKepler.csproj",
+        "projectPath": "/home/cohorte6/Escritorio/c#/KeplerAccess/AccessKepler.csproj",
         "packagesPath": "/home/cohorte6/.nuget/packages/",
-        "outputPath": "/home/cohorte6/Escritorio/c#/AccessKepler/obj/",
+        "outputPath": "/home/cohorte6/Escritorio/c#/KeplerAccess/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/cohorte6/.nuget/NuGet/NuGet.Config"

@@ -29,7 +29,6 @@
 
 html, body {
     height: 100%;
-    overflow: hidden;
     background: var(--c-bg);
     color: var(--c-text);
     font-family: var(--font-mono);
@@ -38,15 +37,22 @@ html, body {
     user-select: none;
 }
 
+/* Scroll bloqueado solo en la app del scanner */
+body.scanner-active {
+    overflow: hidden;
+}
+
 /* ===== LOGIN ===== */
 .login-wrapper {
     min-height: 100vh;
+    min-height: 100dvh;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 24px;
+    padding: 20px 16px;
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .login-bg {
@@ -82,8 +88,16 @@ html, body {
     background: var(--c-surface);
     border: 1px solid var(--c-border);
     border-radius: 20px;
-    padding: 36px 32px 28px;
+    padding: 32px 28px 24px;
     box-shadow: 0 24px 64px rgba(0,0,0,0.5), 0 0 0 1px rgba(253,123,65,0.06);
+    margin: auto;
+}
+
+@media (max-width: 420px) {
+    .login-card {
+        padding: 24px 20px 20px;
+        border-radius: 16px;
+    }
 }
 
 .login-header {
@@ -157,7 +171,8 @@ html, body {
     color: var(--c-text);
     font-family: var(--font-mono);
     font-size: 14px;
-    padding: 12px 14px 12px 44px;
+    padding: 12px 48px 12px 44px;
+
     transition: border-color var(--transition), box-shadow var(--transition);
     outline: none;
     -webkit-appearance: none;
@@ -172,12 +187,23 @@ html, body {
 
 .toggle-pass {
     position: absolute;
-    right: 12px;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+
     background: none;
     border: none;
     color: var(--c-text-dim);
     cursor: pointer;
-    padding: 4px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 24px;
+    height: 24px;
+
+    padding: 0;
 }
 
 .btn-login {

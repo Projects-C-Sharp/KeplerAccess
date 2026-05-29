@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LIxnrYYFiYc=",
+  "dgSpecHash": "yG4kOfagPxs=",
   "success": true,
-  "projectFilePath": "/home/cohorte6/Escritorio/c#/AccessKepler/AccessKepler.csproj",
+  "projectFilePath": "/home/cohorte6/Escritorio/c#/KeplerAccess/AccessKepler.csproj",
   "expectedPackageFiles": [
     "/home/cohorte6/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/9.0.0/microsoft.aspnetcore.authentication.jwtbearer.9.0.0.nupkg.sha512",
     "/home/cohorte6/.nuget/packages/microsoft.identitymodel.abstractions/8.18.0/microsoft.identitymodel.abstractions.8.18.0.nupkg.sha512",
