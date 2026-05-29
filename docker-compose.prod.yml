@@ -20,6 +20,6 @@ services:
     
     environment:
       ASPNETCORE_ENVIRONMENT: Production
-      ApiBaseUrl: "https://api.kepler.andrescortes.dev"
+      Api__BaseUrl: "https://api.kepler.andrescortes.dev"
 
 
