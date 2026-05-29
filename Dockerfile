@@ -1,24 +1,26 @@
-FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
+# Etapa 1: Build
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /app
+
+# Copiar csproj y restaurar dependencias
+COPY *.csproj ./
+RUN dotnet restore
+
+# Copiar todo el código
+COPY . ./
+
+# Publicar la aplicación
+RUN dotnet publish -c Release -o /out
+
+# Etapa 2: Runtime
+FROM mcr.microsoft.com/dotnet/aspnet:10.0
+WORKDIR /app
+
+# Copiar desde la etapa build
+COPY --from=build /out .
+
+# Exponer puerto
 EXPOSE 8080
-EXPOSE 8443
 
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
-WORKDIR /src
-COPY ["AccessKepler.csproj", "."]
-RUN dotnet restore "AccessKepler.csproj"
-COPY . .
-RUN dotnet build "AccessKepler.csproj" -c Release -o /app/build
-
-FROM build AS publish
-RUN dotnet publish "AccessKepler.csproj" -c Release -o /app/publish /p:UseAppHost=false
-
-FROM base AS final
-WORKDIR /app
-COPY --from=publish /app/publish .
-
-# Required for camera/HTTPS in PWA
-ENV ASPNETCORE_URLS=http://+:8080
-ENV ASPNETCORE_ENVIRONMENT=Production
-
-ENTRYPOINT ["dotnet", "AccessKepler.dll"]
+# Comando de inicio
+ENTRYPOINT ["dotnet", "admin-tickets.dll"]
