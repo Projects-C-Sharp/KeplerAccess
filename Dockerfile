@@ -23,4 +23,4 @@ COPY --from=build /out .
 EXPOSE 8080
 
 # Comando de inicio
-ENTRYPOINT ["dotnet", "admin-tickets.dll"]
+ENTRYPOINT ["dotnet", "AccessKepler.dll"]

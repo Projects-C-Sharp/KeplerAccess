@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AccessKepler")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6a8dc4f644786617471efc53bf2efecce16d0640")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+065f6eec8c58ff461e3fc667448bf01e542dc377")]
 [assembly: System.Reflection.AssemblyProductAttribute("AccessKepler")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AccessKepler")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
