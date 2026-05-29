@@ -1,0 +1,93 @@
+name: CI/CD — Kepler Access Page
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # ─────────────────────────────────────────
+      # 1. Checkout del repositorio
+      # ─────────────────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ─────────────────────────────────────────
+      # 2. Login en Docker Hub
+      # ─────────────────────────────────────────
+      - name: Docker Hub login
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # ─────────────────────────────────────────
+      # 3. Build y push de la imagen
+      # ─────────────────────────────────────────
+      - name: Build Docker image
+        run: |
+          docker build \
+            -f Dockerfile \
+            -t ${{ secrets.DOCKER_USER }}/access-tickets:latest \
+            .
+
+      - name: Push Docker image
+        run: |
+          docker push ${{ secrets.DOCKER_USER }}/access-tickets:latest
+
+      # ─────────────────────────────────────────
+      # 4. Copiar docker-compose.prod.yml a la VPS
+      # ─────────────────────────────────────────
+      - name: Copiar docker-compose.prod.yml a la VPS
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          password: ${{ secrets.VPS_PASSWORD }}
+          port: 22
+          source: "docker-compose.prod.yml"
+          target: "/Ismael/spring-8/tickets/access"
+            
+      # ─────────────────────────────────────────
+      # 5. Escribir .env y levantar contenedores en la VPS
+      # ─────────────────────────────────────────
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          password: ${{ secrets.VPS_PASSWORD }}
+          port: 22
+          script: |
+            set -e
+            cd /Ismael/spring-8/tickets/access
+
+            echo "── Escribir .env ──"
+            cat > .env << EOF
+            DOCKER_USER=${{ secrets.DOCKER_USER }}
+            EOF
+                          
+            echo "── Pull latest image ──"
+            docker pull ${{ secrets.DOCKER_USER }}/access-tickets:latest
+              
+            echo "── Bajar stack anterior ──"
+            docker compose -f docker-compose.prod.yml down --remove-orphans
+              
+            echo "── Levantar stack ──"
+            docker compose -f docker-compose.prod.yml up -d
+              
+            echo "── Verificar estado (esperar healthchecks) ──"
+            sleep 15
+            docker compose -f docker-compose.prod.yml ps
+              
+            echo "── Remove dangling images ──"
+            docker image prune -f
+              
+            echo "✅ Deploy completado"
